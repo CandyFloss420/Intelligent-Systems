@@ -1,0 +1,32 @@
+vid = videoinput('winvideo',1,'YUY2_160x120');
+
+set(vid,'FramesPerTrigger',100);
+start(vid);
+wait(vid,Inf);
+
+% Retrieve the frames and timestamps for each frame.
+[frames,time] = getdata(vid, get(vid,'FramesAvailable'));
+
+% Calculate frame rate by averaging difference between each frame's timestamp
+framerate = mean(1./diff(time));
+
+set(vid,'FrameGrabInterval',10);
+
+capturetime = 30;
+interval = get(vid,'FrameGrabInterval');
+numframes = floor(capturetime * framerate / interval);
+
+set(vid,'LoggingMode','disk');
+
+%avi = avifile('timelapsevideo','fps',framerate);
+%set(vid,'DiskLogger',avi);
+vid = VideoWriter('newfile.avi', 'Motion JPEG AVI');
+
+%start(vid);
+%wait(vid,Inf); % Wait for the capture to complete before continuing.
+
+%avi = get(vid,'DiskLogger');
+%avi = close(avi);
+
+delete(vid);
+clear vid;
