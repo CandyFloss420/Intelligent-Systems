@@ -7,7 +7,8 @@ debugmode = 1;  %0 = live, 1 = debug
 %define file structure
 if debugmode == 0
     framespersec = 10; 
-    framesperhour = framespersec*3600;
+    %3600 is the amount of seconds within an hour
+    framesperhour = framespersec*3600; 
     vidsperday = 24;
 else
     framespersec = 10; 
